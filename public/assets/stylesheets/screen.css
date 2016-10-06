@@ -1,0 +1,25 @@
+@import "https://fonts.googleapis.com/css?family=David+Libre|Signika";
+/* line 7, ../sass/screen.scss */
+body .primary-font {
+  font-family: "David Libre", serif;
+}
+/* line 10, ../sass/screen.scss */
+body .secondary-font, body .app-header .app-title, body .app-navigation-container .app-navigation .mdl-navigation__link, body .app-menu .mdl-menu__item {
+  font-family: "Signika", sans-serif;
+}
+/* line 13, ../sass/screen.scss */
+body .mdl-spinner {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+}
+/* line 22, ../sass/screen.scss */
+body .app-header .app-title a {
+  color: #FFF;
+  text-decoration: none;
+}
+/* line 25, ../sass/screen.scss */
+body .app-header .app-title a:hover {
+  text-decoration: none;
+}

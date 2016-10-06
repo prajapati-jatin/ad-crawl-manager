@@ -1,0 +1,43 @@
+@import 'https://fonts.googleapis.com/css?family=David+Libre|Signika';
+
+$primary-font: 'David Libre', serif;
+$secondary-font: 'Signika', sans-serif;
+
+body{
+    .primary-font{
+        font-family: $primary-font;
+    }
+    .secondary-font{
+        font-family: $secondary-font;
+    }
+    .mdl-spinner{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5%;
+    }
+    .app-header{
+        .app-title{
+            @extend .secondary-font;
+            a{
+                color: #FFF;
+                text-decoration: none;
+                &:hover{
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+    .app-navigation-container{
+        .app-navigation{
+            .mdl-navigation__link{
+                @extend .secondary-font;
+            }
+        }
+    }
+    .app-menu{
+        .mdl-menu__item{
+            @extend .secondary-font;
+        }
+    }
+}

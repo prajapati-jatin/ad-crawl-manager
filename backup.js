@@ -1,0 +1,1 @@
+//"start": "concurrently \"node ./bin/www\" \"npm run tsc:w\" \"nodemon\"",
