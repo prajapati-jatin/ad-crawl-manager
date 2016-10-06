@@ -15,7 +15,7 @@ var HomeComponent = (function () {
     function HomeComponent(userService, logger) {
         this.userService = userService;
         this.logger = logger;
-        this.title = 'MEA2N';
+        this.title = 'AD Crawl Manager';
     }
     HomeComponent.prototype.ngOnInit = function () {
         try {

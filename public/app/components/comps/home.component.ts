@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit{
     
     constructor(private userService: UserService, private logger: Logger){}
     
-    title = 'MEA2N';
+    title = 'AD Crawl Manager';
     
     ngOnInit(){
         try{
