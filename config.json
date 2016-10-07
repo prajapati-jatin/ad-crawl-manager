@@ -1,5 +1,13 @@
 {
-    "connectionString": "mongodb://localhost:27017/googleauth",
+    "mssqlconnectionconfig": {
+        "database": "ADCrawler",
+        "server": "invind240",
+        "user": "adcrawleradmin",
+        "password": "!Passw0rd",
+        "options": {
+            "encrypt": true
+        }
+    },
     "apiUrl": "http://0.0.0.0:8080/api",
     "secret": "REPLACE THIS WITH YOUR OWN SECRET, IT CAN BE ANY STRING 12345"
 }
