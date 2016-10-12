@@ -15,37 +15,34 @@ var user_service_1 = require('../services/user.service');
 var authentication_service_1 = require('../services/authentication.service');
 var logger_service_1 = require('../services/logger.service');
 var notification_service_1 = require('../services/notification.service');
+var shareddata_service_1 = require('../services/shareddata.service');
 var LoginComponent = (function () {
-    function LoginComponent(userService, logger, route, router, notificationService, authService) {
+    function LoginComponent(userService, logger, route, router, notificationService, authService, sharedData) {
         this.userService = userService;
         this.logger = logger;
         this.route = route;
         this.router = router;
         this.notificationService = notificationService;
         this.authService = authService;
+        this.sharedData = sharedData;
         this.isauthenticated = false;
         this.title = 'Login';
         this.model = new login_1.Login('jatin.prajapati@outlook.com', '');
+        this.errorMessage = undefined;
         this.submitted = false;
     }
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
         try {
             this.submitted = true;
-            this.authService.login(this.model.username, this.model.password).then(function (resp) {
-                console.log(resp.token);
-                window.token = resp;
-                window.IsLoggedIn = true;
-                _this.logger.log(_this.authService.RedirectURL);
-                if (window.RedirectURL !== '' && window.RedirectURL !== undefined) {
-                    _this.router.navigate([window.RedirectURL]);
+            this.authService.login(this.model.username, this.model.password).subscribe(function (result) {
+                console.log(result);
+                if (result.success) {
+                    console.log(_this.sharedData.getRedirectUrl());
                 }
                 else {
-                    _this.router.navigate(['/home']);
+                    _this.logger.showNotification(result.data, 'error');
                 }
-            }).catch(function (err) {
-                var errorMessage = err.text();
-                _this.logger.showNotification(errorMessage, 'error');
             });
         }
         catch (ex) {
@@ -90,7 +87,7 @@ var LoginComponent = (function () {
         core_1.Component({
             templateUrl: '/views/login.html'
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, router_1.ActivatedRoute, router_1.Router, notification_service_1.NotificationService, authentication_service_1.AuthenticationService])
+        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, router_1.ActivatedRoute, router_1.Router, notification_service_1.NotificationService, authentication_service_1.AuthenticationService, shareddata_service_1.SharedDataService])
     ], LoginComponent);
     return LoginComponent;
 }());

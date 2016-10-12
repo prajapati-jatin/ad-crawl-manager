@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { UserService } from '../services/user.service';
 import { Logger } from '../services/logger.service';
+import { SharedDataService } from '../services/shareddata.service';
 
 @Injectable()
 export class AuthenticationService{
@@ -12,26 +13,25 @@ export class AuthenticationService{
     public RedirectURL: string;
 
     constructor(private userService: UserService, private logger: Logger,
-                private http: Http){
+                private http: Http, private sharedData: SharedDataService){
 
     }
 
-    login(username: string, password: string): Promise<string>{
-        return this.userService.authenticate(username, password).then(resp => {
-            window.IsLoggedIn = true;
-            return resp;
-        }).catch(err => {
-            return err;
+    login(username: string, password: string){
+        return this.userService.authenticate(username, password).map(res => {
+            if(res.success){                
+                localStorage.setItem('auth_token', res.data);
+                this.sharedData.setIsLogged(true);
+            }
+            return res;
         });
     }
 
-    logout(): Promise<string>{
-        return this.userService.logout().then(resp => {
-            window.IsLoggedIn = false;
-            return resp;
-        }).catch(err => {
-            return err;
-        })
+    logout(){
+        return this.userService.logout().map(res => {
+            this.sharedData.setIsLogged(false);
+            return res;
+        });
     }
 
     getToken(): Promise<string>{

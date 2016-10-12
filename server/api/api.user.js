@@ -28,17 +28,20 @@ function createAdmin(req, res){
 }
 
 function authenticateUser(req, res){
-    userService.authenticate(req.body.username, req.body.password).then(function(token){
-        if(token){
-            req.session.token = token;
+    userService.authenticate(req.body.username, req.body.password).then(function(resp){
+        if(resp.success){
+            req.session.token = resp.data;
             //authentication successful
-            res.send({token: token});
+            
         }
         else{
             //authentication failed
-            res.status(401).send('Invalid credentials.');
+            //res.status(401).send('Invalid credentials.');
         }
+        res.send(resp);
     }).catch(function(err){
+        console.log('Auth error');
+        console.log(err);
         res.status(400).send(err);
     });
 }

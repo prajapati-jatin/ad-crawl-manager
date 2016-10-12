@@ -22,6 +22,9 @@ userManager.getAllUsers = function(){
     });
 }
 
+/**
+ * Get user by provided user name.
+ */
 userManager.getUserByName = function(userName){
     dbstore.executeQuery('GetUserByName', [{
         name: 'Name',
@@ -35,6 +38,9 @@ userManager.getUserByName = function(userName){
     });
 }
 
+/**
+ * Authenticates the user by provided username and password.
+ */
 userManager.authenticate = function(userName, password){
     var dfd = Q.defer();
     try{        

@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { Logger } from '../services/logger.service';
 import { NotificationService, NotificationMessage } from '../services/notification.service';
+import { SharedDataService } from '../services/shareddata.service';
 
 //To avoid 'name not found' warning from TypeScript, define a variable of type any.
 declare var componentHandler: any;
@@ -21,46 +22,31 @@ export class LoginComponent implements AfterViewInit, OnInit{
     constructor(private userService: UserService, private logger: Logger, 
                 private route: ActivatedRoute, private router: Router,
                 private notificationService: NotificationService,
-                public authService: AuthenticationService) { 
+                public authService: AuthenticationService, private sharedData: SharedDataService) { 
 
                 }
     
     @Input() isauthenticated = false;
     title = 'Login';
     
-    model = new Login('jatin.prajapati@outlook.com', '');    
+    model = new Login('jatin.prajapati@outlook.com', '');  
+
+    errorMessage = undefined;
     
     submitted = false;
     
     onSubmit() {
         try{
             this.submitted = true;
-            this.authService.login(this.model.username, this.model.password).then(resp => {
-                console.log(resp.token);
-                window.token = resp;
-                window.IsLoggedIn = true;
-                this.logger.log(this.authService.RedirectURL);
-                if(window.RedirectURL !== '' && window.RedirectURL !== undefined){
-                    this.router.navigate([window.RedirectURL]);
+            this.authService.login(this.model.username, this.model.password).subscribe((result) => {
+                console.log(result);
+                if(result.success){
+                    console.log(this.sharedData.getRedirectUrl());
                 }
                 else{
-                    this.router.navigate(['/home']);    
+                    this.logger.showNotification(result.data, 'error');
                 }
-            }).catch(err => {
-                let errorMessage = err.text();
-                this.logger.showNotification(errorMessage, 'error');
-            });
-            // this.userService.authenticate(this.model.username, this.model.password).then((response) => {
-            //     console.log('In auth success');
-            //     window.token = response;
-            //     this.isauthenticated = true;
-            //     this.notificationService.sendNotification(new NotificationMessage("authenticated", "", null));
-            //     this.router.navigate(['/home']);
-            // }).catch((error) => {
-            //     let errorMessage = error.text();
-            //     this.logger.showNotification(errorMessage, 'error');
-            //     this.logger.log(error.text());
-            // });
+            })
         }
         catch(ex){
             console.error(ex);

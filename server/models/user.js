@@ -8,6 +8,7 @@ var User = function(data){
     this.data.PasswordHash = bcrypt.hashSync(data.Password, 10);
     this.data.NormalizedUserName = this.data.UserName.toUpperCase();
     this.data.NormalizedEmail = this.data.Email.toUpperCase();
+    this.data.AccessFailedCount = 0;
 }
 
 User.prototype.data = {};

@@ -12,27 +12,30 @@ var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 var user_service_1 = require('../services/user.service');
 var logger_service_1 = require('../services/logger.service');
+var shareddata_service_1 = require('../services/shareddata.service');
 var AuthenticationService = (function () {
-    function AuthenticationService(userService, logger, http) {
+    function AuthenticationService(userService, logger, http, sharedData) {
         this.userService = userService;
         this.logger = logger;
         this.http = http;
+        this.sharedData = sharedData;
         this.IsLoggedIn = false;
     }
     AuthenticationService.prototype.login = function (username, password) {
-        return this.userService.authenticate(username, password).then(function (resp) {
-            window.IsLoggedIn = true;
-            return resp;
-        }).catch(function (err) {
-            return err;
+        var _this = this;
+        return this.userService.authenticate(username, password).map(function (res) {
+            if (res.success) {
+                localStorage.setItem('auth_token', res.data);
+                _this.sharedData.setIsLogged(true);
+            }
+            return res;
         });
     };
     AuthenticationService.prototype.logout = function () {
-        return this.userService.logout().then(function (resp) {
-            window.IsLoggedIn = false;
-            return resp;
-        }).catch(function (err) {
-            return err;
+        var _this = this;
+        return this.userService.logout().map(function (res) {
+            _this.sharedData.setIsLogged(false);
+            return res;
         });
     };
     AuthenticationService.prototype.getToken = function () {
@@ -51,7 +54,7 @@ var AuthenticationService = (function () {
     };
     AuthenticationService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, http_1.Http])
+        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, http_1.Http, shareddata_service_1.SharedDataService])
     ], AuthenticationService);
     return AuthenticationService;
 }());

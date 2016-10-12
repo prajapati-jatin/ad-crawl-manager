@@ -14,7 +14,6 @@ mssqldbstore.executeNonQuery = function(procedureName, inputParameters, outputPa
         var request = new sql.Request();
         if(inputParameters !== null && inputParameters !== undefined){
             _.forEach(inputParameters, function(param){
-                console.log(param);
                 request.input(param.name, getParamType(param), param.value);
             });
         }
@@ -29,9 +28,11 @@ mssqldbstore.executeNonQuery = function(procedureName, inputParameters, outputPa
             dfd.resolve(recordset);
         }).catch(function(error){
             console.log('In error executeNonQuery');
+            console.log(error);
             //TODO: Check for errors.
             dfd.reject(error);
         });
+        dfd.resolve();
     }).catch(function(error){
         dfd.reject(error);
         //Check for connection errors.
@@ -64,6 +65,7 @@ mssqldbstore.executeQuery = function(procedureName, inputParameters, outputParam
             console.log(error);
             dfd.reject();
         });
+        //dfd.resolve();
     }).catch(function(error){
         console.log('In error connect');
         console.log(error);
@@ -72,11 +74,8 @@ mssqldbstore.executeQuery = function(procedureName, inputParameters, outputParam
     return dfd.promise;
 }
 
-function getParamType(param){
-    if(param === undefined){
-        return;
-    }
-    if(param.length === "max"){
+function getParamType(param){        
+    if(param.length === 'max'){
         param.length = sql.MAX;
     }
     switch(param.type.toLowerCase()){        
@@ -88,6 +87,8 @@ function getParamType(param){
             return sql.Decimal(param.precision, param.scale);
         case 'float':
             return sql.Float;
+        case 'int':
+            return sql.Int;
         case 'money':
             return sql.money;
         case 'numeric':

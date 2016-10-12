@@ -15,32 +15,22 @@ var UserService = (function () {
     function UserService(logger, http) {
         this.logger = logger;
         this.http = http;
+        this.authUrl = '/api/users/authenticate';
     }
     ;
     UserService.prototype.authenticate = function (username, password) {
-        var authUrl = '/api/users/authenticate';
         var body = JSON.stringify({ username: username, password: password });
-        return this.http.post(authUrl, body, this.getRequestOptions())
-            .toPromise()
-            .then(function (response) {
-            var body = response.json();
-            return body || {};
+        return this.http.post(this.authUrl, body, this.getRequestOptions())
+            .map(function (res) { return res.json(); })
+            .map(function (res) {
+            return res;
         });
-        // .catch((error) => {
-        //     this.logger.log('Auth error');
-        //     this.logError(error);
-        //     throw new Error("Invalid credentials");
-        // });
     };
     UserService.prototype.logout = function () {
-        var _this = this;
         var url = '/logout';
-        return this.http.get(url).toPromise().then(function (res) {
-            _this.logger.log('Logout response: ' + res.status);
-            var body = res.statusText;
-            return body || {};
-        }).catch(function (err) {
-            _this.logError(err);
+        return this.http.get(url).map(function (res) { return res.json(); })
+            .map(function (res) {
+            return res;
         });
     };
     UserService.prototype.getToken = function () {

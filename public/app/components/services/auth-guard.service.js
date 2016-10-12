@@ -11,14 +11,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var authentication_service_1 = require('./authentication.service');
+var shareddata_service_1 = require('./shareddata.service');
 var AuthGuard = (function () {
-    function AuthGuard(authService, router) {
+    function AuthGuard(authService, router, sharedData) {
         this.authService = authService;
         this.router = router;
+        this.sharedData = sharedData;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
         var url = state.url;
-        console.log(url);
         return this.checkLogin(url);
     };
     AuthGuard.prototype.canActivateChild = function (route, state) {
@@ -32,19 +33,19 @@ var AuthGuard = (function () {
     AuthGuard.prototype.checkLogin = function (url) {
         console.log('In checkLogin');
         //If user is logged in then return true.
-        if (window.IsLoggedIn) {
+        if (this.authService.IsLoggedIn) {
             return true;
         }
         console.log(url);
         //Store the attempted URL for redirecting
-        window.RedirectURL = url;
+        this.sharedData.setRedirectUrl(url);
         //Navigate to the login page
         this.router.navigate(['/login']);
         return false;
     };
     AuthGuard = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, router_1.Router])
+        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, router_1.Router, shareddata_service_1.SharedDataService])
     ], AuthGuard);
     return AuthGuard;
 }());

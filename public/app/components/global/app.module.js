@@ -20,6 +20,7 @@ var about_component_1 = require('../comps/about.component');
 var contact_component_1 = require('../comps/contact.component');
 var user_service_1 = require('../services/user.service');
 var logger_service_1 = require('../services/logger.service');
+var shareddata_service_1 = require('../services/shareddata.service');
 var app_routing_1 = require('./app.routing');
 var AppModule = (function () {
     function AppModule() {
@@ -29,7 +30,7 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, http_1.JsonpModule, app_routing_1.routing],
             declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, login_form_component_1.LoginComponent, logout_component_1.LogoutComponent,
                 about_component_1.AboutComponent, contact_component_1.ContactComponent],
-            providers: [user_service_1.UserService, logger_service_1.Logger, app_routing_1.appRoutingProviders],
+            providers: [user_service_1.UserService, logger_service_1.Logger, app_routing_1.appRoutingProviders, shareddata_service_1.SharedDataService],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

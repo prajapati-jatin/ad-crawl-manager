@@ -40,4 +40,9 @@ body{
             @extend .secondary-font;
         }
     }
+
+    .card-in-center{
+        margin-left: auto;
+        margin-right: auto;        
+    }
 }

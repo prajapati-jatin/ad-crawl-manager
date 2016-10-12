@@ -12,6 +12,7 @@ import { ContactComponent } from '../comps/contact.component';
 
 import { UserService } from '../services/user.service';
 import { Logger } from '../services/logger.service';
+import { SharedDataService } from '../services/shareddata.service';
 
 import { routing, appRoutingProviders } from './app.routing';
 
@@ -19,7 +20,7 @@ import { routing, appRoutingProviders } from './app.routing';
     imports: [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing  ],
     declarations: [ AppComponent, HomeComponent, LoginComponent, LogoutComponent, 
     AboutComponent, ContactComponent ],
-    providers: [ UserService, Logger, appRoutingProviders ],
+    providers: [ UserService, Logger, appRoutingProviders, SharedDataService ],
     bootstrap: [ AppComponent ]
 })
 

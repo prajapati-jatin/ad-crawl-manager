@@ -10,7 +10,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var startup = require('./server/controllers/app.controller');
-//var userapi = require('./server/api/api.user');
+var userapi = require('./server/api/api.user');
 //var users = require('./routes/users');
 
 var app = express();
@@ -43,7 +43,7 @@ app.use('/assets', express.static(path.join(__dirname, 'public/app')));
 app.use('/views', express.static(path.join(__dirname, 'public/app/views')));
 
 app.use('/', startup);
-//app.use('/api/users', userapi);
+app.use('/api/users', userapi);
 
 
 

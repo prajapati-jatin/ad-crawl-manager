@@ -4,34 +4,28 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Logger } from './logger.service';
 
 @Injectable()
-export class UserService{
+export class UserService{    
     
-    constructor(private logger: Logger, private http: Http) { };
-    
-    authenticate(username:string, password:string): Promise<string> {        
-        let authUrl = '/api/users/authenticate';
+    constructor(private logger: Logger, private http: Http) { 
+        
+    };
+
+    authUrl = '/api/users/authenticate';
+
+    authenticate(username: string, password: string){
         let body = JSON.stringify({username: username, password: password});
-        return this.http.post(authUrl, body, this.getRequestOptions())
-                .toPromise()
-                .then((response) => {
-                    let body = response.json();
-                    return body || {};
-                });
-                // .catch((error) => {
-                //     this.logger.log('Auth error');
-                //     this.logError(error);
-                //     throw new Error("Invalid credentials");
-                // });
+        return this.http.post(this.authUrl, body, this.getRequestOptions())
+        .map(res => res.json())
+        .map((res) => {            
+            return res;
+        });
     }
     
-    logout(): Promise<string>{
+    logout(){
         let url = '/logout';
-        return this.http.get(url).toPromise().then((res) => {
-           this.logger.log('Logout response: ' + res.status);
-           let body = res.statusText;
-           return body || {};
-        }).catch((err) => {
-            this.logError(err);
+        return this.http.get(url).map(res => res.json())
+        .map(res => {            
+            return res;
         });
     }
     
