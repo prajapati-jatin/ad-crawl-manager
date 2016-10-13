@@ -15,9 +15,10 @@ var SharedDataService = (function () {
         this.redirectUrl = '';
     }
     SharedDataService.prototype.IsLoggedIn = function () {
-        return this.isLoggedIn;
+        var token = localStorage.getItem('auth_token');
+        return (token !== undefined && token !== '' && token !== null);
     };
-    SharedDataService.prototype.setIsLogged = function (status) {
+    SharedDataService.prototype.setIsLoggedIn = function (status) {
         this.isLoggedIn = status;
     };
     SharedDataService.prototype.setRedirectUrl = function (url) {

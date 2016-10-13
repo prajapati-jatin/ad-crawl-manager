@@ -10,27 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var user_service_1 = require('../services/user.service');
 var logger_service_1 = require('../services/logger.service');
+var authentication_service_1 = require('../services/authentication.service');
 var LogoutComponent = (function () {
-    function LogoutComponent(userService, logger, router) {
-        this.userService = userService;
+    function LogoutComponent(authService, logger, router) {
+        this.authService = authService;
         this.logger = logger;
         this.router = router;
     }
-    LogoutComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.userService.logout().then(function (res) {
-            _this.router.navigate(['/home']);
-        }).catch(function (err) {
-            _this.logger.logError(err);
-        });
-    };
     LogoutComponent = __decorate([
         core_1.Component({
             template: "<span></span>"
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, logger_service_1.Logger, router_1.Router])
+        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, logger_service_1.Logger, router_1.Router])
     ], LogoutComponent);
     return LogoutComponent;
 }());

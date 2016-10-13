@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Logger } from '../services/logger.service';
 import { NotificationService, NotificationMessage } from '../services/notification.service';
+import { SharedDataService } from '../services/shareddata.service';
 
 import './rxjs-operators';
 
@@ -22,7 +23,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     public authenticated = false;
     
     constructor(private authService: AuthenticationService, private logger: Logger, private router: Router,
-    private notificationService: NotificationService){
+    private notificationService: NotificationService, private sharedData: SharedDataService){
         this.notificationService.notify$.subscribe(noty => {
             switch(noty.notyType){
                 case 'authenticated':
@@ -39,21 +40,20 @@ export class AppComponent implements AfterViewInit, OnInit {
     
     onLogout(){
         this.authService.logout().then(res => {
-            window.location.assign('/');
+            if(res){
+                //window.location.assign('/');
+            }
         }).catch(err => {
-            this.logger.logError(err);
+            console.log('logout error');
+            console.log(err);
         });
     }
     
     ngOnInit(){
         try{
-            this.authService.getToken().then((response) => {
-                if(response !== "undefined" && response !== ''){
-                    this.authenticated = true;
-                }
-            }).catch((error) => {
-                
-            });
+            if(this.sharedData.IsLoggedIn()){
+                this.notificationService.sendNotification(new NotificationMessage('authenticated', '', null));
+            }
         }
         catch(ex){
             this.logger.logError(ex);

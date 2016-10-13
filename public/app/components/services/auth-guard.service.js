@@ -12,11 +12,13 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var authentication_service_1 = require('./authentication.service');
 var shareddata_service_1 = require('./shareddata.service');
+var notification_service_1 = require('../services/notification.service');
 var AuthGuard = (function () {
-    function AuthGuard(authService, router, sharedData) {
+    function AuthGuard(authService, router, sharedData, notificationService) {
         this.authService = authService;
         this.router = router;
         this.sharedData = sharedData;
+        this.notificationService = notificationService;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
         var url = state.url;
@@ -27,13 +29,12 @@ var AuthGuard = (function () {
     };
     AuthGuard.prototype.canLoad = function (route) {
         var url = "/" + route.path;
-        console.log('In canLoad');
         return this.checkLogin(url);
     };
     AuthGuard.prototype.checkLogin = function (url) {
-        console.log('In checkLogin');
         //If user is logged in then return true.
-        if (this.authService.IsLoggedIn) {
+        console.log('Is logged in: ' + this.sharedData.IsLoggedIn());
+        if (this.sharedData.IsLoggedIn()) {
             return true;
         }
         console.log(url);
@@ -45,7 +46,7 @@ var AuthGuard = (function () {
     };
     AuthGuard = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, router_1.Router, shareddata_service_1.SharedDataService])
+        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, router_1.Router, shareddata_service_1.SharedDataService, notification_service_1.NotificationService])
     ], AuthGuard);
     return AuthGuard;
 }());

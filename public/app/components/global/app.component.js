@@ -14,14 +14,16 @@ var core_1 = require('@angular/core');
 var authentication_service_1 = require('../services/authentication.service');
 var logger_service_1 = require('../services/logger.service');
 var notification_service_1 = require('../services/notification.service');
+var shareddata_service_1 = require('../services/shareddata.service');
 require('./rxjs-operators');
 var AppComponent = (function () {
-    function AppComponent(authService, logger, router, notificationService) {
+    function AppComponent(authService, logger, router, notificationService, sharedData) {
         var _this = this;
         this.authService = authService;
         this.logger = logger;
         this.router = router;
         this.notificationService = notificationService;
+        this.sharedData = sharedData;
         this.authenticated = false;
         this.title = 'SPRT';
         this.notificationService.notify$.subscribe(function (noty) {
@@ -36,22 +38,19 @@ var AppComponent = (function () {
         });
     }
     AppComponent.prototype.onLogout = function () {
-        var _this = this;
         this.authService.logout().then(function (res) {
-            window.location.assign('/');
+            if (res) {
+            }
         }).catch(function (err) {
-            _this.logger.logError(err);
+            console.log('logout error');
+            console.log(err);
         });
     };
     AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
         try {
-            this.authService.getToken().then(function (response) {
-                if (response !== "undefined" && response !== '') {
-                    _this.authenticated = true;
-                }
-            }).catch(function (error) {
-            });
+            if (this.sharedData.IsLoggedIn()) {
+                this.notificationService.sendNotification(new notification_service_1.NotificationMessage('authenticated', '', null));
+            }
         }
         catch (ex) {
             this.logger.logError(ex);
@@ -85,7 +84,7 @@ var AppComponent = (function () {
             templateUrl: '/views/app.html',
             providers: [notification_service_1.NotificationService, authentication_service_1.AuthenticationService]
         }), 
-        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, logger_service_1.Logger, router_1.Router, notification_service_1.NotificationService])
+        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, logger_service_1.Logger, router_1.Router, notification_service_1.NotificationService, shareddata_service_1.SharedDataService])
     ], AppComponent);
     return AppComponent;
 }());

@@ -3,18 +3,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { UserService } from '../services/user.service';
 import { Logger } from '../services/logger.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
     template: `<span></span>`
 })
-export class LogoutComponent implements OnInit {
-    constructor(private userService: UserService, private logger: Logger, private router: Router){}
-    
-    ngOnInit(){
-        this.userService.logout().then(res => {
-            this.router.navigate(['/home']);
-        }).catch(err => {
-            this.logger.logError(err);
-        });
-    }
+export class LogoutComponent {
+    constructor(private authService: AuthenticationService, private logger: Logger, private router: Router){}   
+   
 }

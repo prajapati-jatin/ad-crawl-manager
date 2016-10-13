@@ -20,7 +20,7 @@
                 <a class="mdl-menu__item" routerLink="/about">About</a>
                 <a class="mdl-menu__item" routerLink="/contact">Contact</a>
                 <a *ngIf="!authenticated" class="mdl-menu__item" routerLink="/login">Login</a>
-                <a *ngIf="authenticated" class="mdl-menu__item" href="#" (click)="onLogout()">Logout</a>
+                <a *ngIf="authenticated" class="mdl-menu__item" (click)="onLogout()">Logout</a>
             </nav>
         </div>
     </div> <!--mdl-layout__header ends-->

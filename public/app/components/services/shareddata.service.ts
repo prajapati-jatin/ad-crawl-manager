@@ -11,10 +11,11 @@ export class SharedDataService{
     redirectUrl: string = '';
 
     IsLoggedIn(){
-        return this.isLoggedIn;
+        let token = localStorage.getItem('auth_token');
+        return (token !== undefined && token !== '' && token !== null);
     }
 
-    setIsLogged(status){
+    setIsLoggedIn(status){
         this.isLoggedIn = status;
     }
 

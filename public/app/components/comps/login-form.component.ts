@@ -41,12 +41,17 @@ export class LoginComponent implements AfterViewInit, OnInit{
             this.authService.login(this.model.username, this.model.password).subscribe((result) => {
                 console.log(result);
                 if(result.success){
-                    console.log(this.sharedData.getRedirectUrl());
+                    let redirectUrl = this.sharedData.getRedirectUrl();
+                    if(redirectUrl === '' || redirectUrl === undefined){
+                        redirectUrl = '/admin';
+                    }
+                    this.notificationService.sendNotification(new NotificationMessage('authenticated', '', null));
+                    this.router.navigate([redirectUrl]);
                 }
                 else{
                     this.logger.showNotification(result.data, 'error');
                 }
-            })
+            });
         }
         catch(ex){
             console.error(ex);
@@ -68,17 +73,22 @@ export class LoginComponent implements AfterViewInit, OnInit{
     }
     
     ngOnInit(){
-        // try{
-        //     this.userService.getToken().then((response) => {
-        //         if(response !== "undefined" && response !== ''){
-        //             this.router.navigate(['/home']);
-        //         }
-        //     }).catch((error) => {
-        //         this.logger.logError('Not authenticated');
-        //     });
-        // }
-        // catch(ex){
-        //     this.logger.logError(ex);
-        // }
+        try{
+            this.authService.getToken().subscribe(response => {
+                console.log('Token: ' + response);
+                if(response === undefined || response === ''){
+                    return;
+                }
+                this.notificationService.sendNotification(new NotificationMessage('authenticated', '', null));
+                let redirectUrl = this.sharedData.getRedirectUrl();
+                if(redirectUrl === '' || redirectUrl === undefined){
+                    redirectUrl = '/admin';
+                }
+                this.router.navigate([redirectUrl]);
+            });
+        }
+        catch(ex){
+            this.logger.logError(ex);
+        }
     }
 }

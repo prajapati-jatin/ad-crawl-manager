@@ -41,9 +41,16 @@ router.get('/token', function(req, res){
 
 router.get('/logout', function(req, res){
    console.log('In logout');
-   //req.logout();
+   req.logout();
    req.session.destroy();
    res.status(200).send('OK');
+});
+
+router.get('/signoff', function(req, res){
+    console.log('In signoff');
+    //req.logout();
+    req.session.destroy();
+    res.status(200).send('OK');
 });
 
 module.exports = router;

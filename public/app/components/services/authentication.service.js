@@ -22,33 +22,33 @@ var AuthenticationService = (function () {
         this.IsLoggedIn = false;
     }
     AuthenticationService.prototype.login = function (username, password) {
-        var _this = this;
         return this.userService.authenticate(username, password).map(function (res) {
             if (res.success) {
                 localStorage.setItem('auth_token', res.data);
-                _this.sharedData.setIsLogged(true);
             }
             return res;
         });
     };
     AuthenticationService.prototype.logout = function () {
-        var _this = this;
-        return this.userService.logout().map(function (res) {
-            _this.sharedData.setIsLogged(false);
+        console.log('In authService logout');
+        return this.userService.logout().then(function (res) {
+            if (res) {
+                localStorage.removeItem('auth_token');
+            }
             return res;
+        }).catch(function (err) {
+            return err;
         });
     };
     AuthenticationService.prototype.getToken = function () {
         var url = '/token';
-        return this.http.get(url, this.getRequestOptions()).toPromise().then(function (response) {
-            var body = response.text();
-            return body;
-        }).catch(function (error) {
-            return Promise.reject(error);
+        return this.http.get(url, this.getRequestOptions()).map(function (resp) {
+            //console.log('Token: ' + resp.text());
+            return resp.text();
         });
     };
     AuthenticationService.prototype.getRequestOptions = function () {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.token });
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('auth_token') });
         var options = new http_1.RequestOptions({ headers: headers });
         return options;
     };

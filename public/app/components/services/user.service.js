@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
+var httpintercepter_1 = require('../global/httpintercepter');
 var logger_service_1 = require('./logger.service');
 var UserService = (function () {
     function UserService(logger, http) {
@@ -27,11 +28,25 @@ var UserService = (function () {
         });
     };
     UserService.prototype.logout = function () {
-        var url = '/logout';
-        return this.http.get(url).map(function (res) { return res.json(); })
-            .map(function (res) {
-            return res;
-        });
+        console.log('In userService logout');
+        //let url = '/signoff';
+        var url = '/api/users/current';
+        console.log(url);
+        try {
+            return this.http.get(url).toPromise().then(function (res) {
+                console.log(res.statusText);
+                console.log(res);
+                if (res.statusText === "OK") {
+                    return true;
+                }
+                return false;
+            }).catch(function (err) {
+                return err;
+            });
+        }
+        catch (ex) {
+            console.log(ex);
+        }
     };
     UserService.prototype.getToken = function () {
         var _this = this;
@@ -56,7 +71,7 @@ var UserService = (function () {
     };
     UserService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [logger_service_1.Logger, http_1.Http])
+        __metadata('design:paramtypes', [logger_service_1.Logger, httpintercepter_1.HttpIntercepter])
     ], UserService);
     return UserService;
 }());

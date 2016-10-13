@@ -6,11 +6,12 @@ import {
 } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 import { SharedDataService } from './shareddata.service';
+import { NotificationService, NotificationMessage } from '../services/notification.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
     constructor(private authService: AuthenticationService, private router:  Router,
-    private sharedData: SharedDataService){
+    private sharedData: SharedDataService, private notificationService: NotificationService){
 
     }
 
@@ -25,14 +26,13 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
 
     canLoad(route: Route): boolean{
         let url = `/${route.path}`;
-        console.log('In canLoad');
         return this.checkLogin(url);
     }
 
-    private checkLogin(url: string): boolean{
-        console.log('In checkLogin');
+    private checkLogin(url: string): boolean{        
         //If user is logged in then return true.
-        if(this.authService.IsLoggedIn){
+        console.log('Is logged in: ' + this.sharedData.IsLoggedIn());
+        if(this.sharedData.IsLoggedIn()){            
             return true;
         }
         console.log(url);

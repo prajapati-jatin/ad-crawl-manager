@@ -19,33 +19,35 @@ export class AuthenticationService{
 
     login(username: string, password: string){
         return this.userService.authenticate(username, password).map(res => {
-            if(res.success){                
-                localStorage.setItem('auth_token', res.data);
-                this.sharedData.setIsLogged(true);
+            if(res.success){                                
+                localStorage.setItem('auth_token', res.data);                
             }
             return res;
         });
     }
 
     logout(){
-        return this.userService.logout().map(res => {
-            this.sharedData.setIsLogged(false);
+        console.log('In authService logout');
+        return this.userService.logout().then(res => {
+            if(res){
+                localStorage.removeItem('auth_token');
+            }
             return res;
+        }).catch(err => {
+            return err;
         });
     }
 
-    getToken(): Promise<string>{
+    getToken(){
         let url = '/token';
-        return this.http.get(url, this.getRequestOptions()).toPromise().then((response) => {
-            let body = response.text();
-            return body;
-        }).catch((error) => {            
-            return Promise.reject(error);
-        });
+        return this.http.get(url, this.getRequestOptions()).map(resp => {
+                //console.log('Token: ' + resp.text());
+                return resp.text();
+            });
     }
 
     private getRequestOptions(){
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.token });
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('auth_token') });
         let options = new RequestOptions({ headers: headers });
         return options;
     }
