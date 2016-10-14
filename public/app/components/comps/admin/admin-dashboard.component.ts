@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    template: `<p>Dashboard</p>`
+    templateUrl: '/views/admin/dashboard.html'
 })
 export class AdminDashboardComponent{
 

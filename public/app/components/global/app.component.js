@@ -40,6 +40,7 @@ var AppComponent = (function () {
     AppComponent.prototype.onLogout = function () {
         this.authService.logout().then(function (res) {
             if (res) {
+                window.location.assign('/');
             }
         }).catch(function (err) {
             console.log('logout error');

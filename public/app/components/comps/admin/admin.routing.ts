@@ -3,6 +3,9 @@ import { ModuleWithProviders } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { AdminDashboardComponent } from './admin-dashboard.component';
 import { CategoriesComponent } from './admin-categories.component';
+import { AdminADPropertiesComponent } from './admin-adproperties.component';
+import { AdminAddApplicationComponent } from './admin-application-add.component';
+import { AdminApplicationsComponent } from './admin-applications.component';
 
 import { AuthGuard } from '../../services/auth-guard.service';
 
@@ -16,7 +19,9 @@ const adminRoutes: Routes = [
                 path: '',
                 canActivateChild: [ AuthGuard ],
                 children: [
-                    { path: 'categories', component: CategoriesComponent },
+                    { path: 'application/add', component: AdminAddApplicationComponent },
+                    { path: 'applications', component: AdminApplicationsComponent },
+                    { path: 'adproperties', component: AdminADPropertiesComponent },
                      { path: '', component: AdminDashboardComponent }
                 ]
             }

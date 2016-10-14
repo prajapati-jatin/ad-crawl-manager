@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var httpintercepter_1 = require('../global/httpintercepter');
 var logger_service_1 = require('./logger.service');
 var UserService = (function () {
     function UserService(logger, http) {
@@ -28,14 +27,11 @@ var UserService = (function () {
         });
     };
     UserService.prototype.logout = function () {
-        console.log('In userService logout');
-        //let url = '/signoff';
-        var url = '/api/users/current';
+        var url = '/signoff';
+        //let url = '/api/users/current';
         console.log(url);
         try {
             return this.http.get(url).toPromise().then(function (res) {
-                console.log(res.statusText);
-                console.log(res);
                 if (res.statusText === "OK") {
                     return true;
                 }
@@ -65,13 +61,13 @@ var UserService = (function () {
         return errorMessage;
     };
     UserService.prototype.getRequestOptions = function () {
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.token });
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('auth_token') });
         var options = new http_1.RequestOptions({ headers: headers });
         return options;
     };
     UserService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [logger_service_1.Logger, httpintercepter_1.HttpIntercepter])
+        __metadata('design:paramtypes', [logger_service_1.Logger, http_1.Http])
     ], UserService);
     return UserService;
 }());

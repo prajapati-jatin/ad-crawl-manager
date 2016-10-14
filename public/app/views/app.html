@@ -9,21 +9,23 @@
             <!-- Navigation -->
             <div class="app-navigation-container">
                 <nav class="app-navigation mdl-navigation">
-                  <a class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/home">Home</a>
-                  <a class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/admin">Dashboard</a>
+                  <a *ngIf="!authenticated" class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/home">Home</a>
+                  <a *ngIf="authenticated" class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/admin">Dashboard</a>
+                  <a *ngIf="authenticated" class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/admin/applications">Applications</a>
+                  <a *ngIf="authenticated" class="mdl-navigation__link mdl-typography--text-uppercase" routerLink="/admin/adproperties">AD properties</a>                  
                 </nav>
             </div>
             <button class="app-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
             <i class="material-icons">more_vert</i>
             </button>
             <nav class="app-menu mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-                <a class="mdl-menu__item" routerLink="/about">About</a>
-                <a class="mdl-menu__item" routerLink="/contact">Contact</a>
+                <!--<a class="mdl-menu__item" routerLink="/about">About</a>
+                <a class="mdl-menu__item" routerLink="/contact">Contact</a>-->
                 <a *ngIf="!authenticated" class="mdl-menu__item" routerLink="/login">Login</a>
                 <a *ngIf="authenticated" class="mdl-menu__item" (click)="onLogout()">Logout</a>
             </nav>
         </div>
-    </div> <!--mdl-layout__header ends-->
+    </div> <!--mdl-layout__header ends-->    
     <div class="mdl-layout__content">
         <a name="top"></a>
         <router-outlet></router-outlet>

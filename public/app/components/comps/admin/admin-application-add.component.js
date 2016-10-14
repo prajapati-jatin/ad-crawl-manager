@@ -9,16 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AdminComponent = (function () {
-    function AdminComponent() {
+var AdminAddApplicationComponent = (function () {
+    function AdminAddApplicationComponent() {
     }
-    AdminComponent = __decorate([
+    AdminAddApplicationComponent = __decorate([
         core_1.Component({
-            templateUrl: '/views/admin/admin.html'
+            templateUrl: '/views/admin/add-application.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], AdminComponent);
-    return AdminComponent;
+    ], AdminAddApplicationComponent);
+    return AdminAddApplicationComponent;
 }());
-exports.AdminComponent = AdminComponent;
-//# sourceMappingURL=admin.component.js.map
+exports.AdminAddApplicationComponent = AdminAddApplicationComponent;
+//# sourceMappingURL=admin-application-add.component.js.map

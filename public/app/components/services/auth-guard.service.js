@@ -33,11 +33,9 @@ var AuthGuard = (function () {
     };
     AuthGuard.prototype.checkLogin = function (url) {
         //If user is logged in then return true.
-        console.log('Is logged in: ' + this.sharedData.IsLoggedIn());
         if (this.sharedData.IsLoggedIn()) {
             return true;
         }
-        console.log(url);
         //Store the attempted URL for redirecting
         this.sharedData.setRedirectUrl(url);
         //Navigate to the login page

@@ -16,6 +16,21 @@ body{
         margin-right: auto;
         margin-top: 5%;
     }
+    .no-padding-margin{
+        padding: 0;
+        margin: 0;
+    }    
+    ul.inline{
+        padding: 0;
+        margin: 0;
+        li{
+            display: inline-block;
+            vertical-align: middle;
+        }
+        &.bottom-gutter-20{
+            margin-bottom: 20px;
+        }
+    }    
     .app-header{
         .app-title{
             @extend .secondary-font;
@@ -28,13 +43,14 @@ body{
             }
         }
     }
-    .app-navigation-container{
-        .app-navigation{
-            .mdl-navigation__link{
-                @extend .secondary-font;
-            }
+    .app-navigation{
+        .mdl-navigation__link{
+            @extend .secondary-font;
         }
     }
+    // .app-navigation-container{
+        
+    // }
     .app-menu{
         .mdl-menu__item{
             @extend .secondary-font;
@@ -44,5 +60,15 @@ body{
     .card-in-center{
         margin-left: auto;
         margin-right: auto;        
+    }
+    .card-fullwidth{
+        width: 100%;
+        min-height: auto;
+    }
+    .section-title{
+        padding-left: 15px;
+    }
+    .data-table-properties{
+        width: 100%;
     }
 }

@@ -14,7 +14,7 @@ var AdminDashboardComponent = (function () {
     }
     AdminDashboardComponent = __decorate([
         core_1.Component({
-            template: "<p>Dashboard</p>"
+            templateUrl: '/views/admin/dashboard.html'
         }), 
         __metadata('design:paramtypes', [])
     ], AdminDashboardComponent);

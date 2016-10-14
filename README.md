@@ -17,3 +17,6 @@ http://mean.expert/2016/05/21/angular-2-component-communication/
 1. Invalid credentails (-1001)
 2. Email not confirmed (-1002)
 3. Account locked (-1003)
+
+## Data related codes
+1. No data found (-2001)

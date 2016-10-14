@@ -1,0 +1,28 @@
+<div class="ad-properties">
+    <ul class="inline bottom-gutter-20">
+        <li>
+            <a routerLink="/admin" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+                <i class="material-icons">keyboard_arrow_left</i>
+            </a>
+        </li>
+        <li>
+            <h3 class="no-padding-margin secondary-font section-title">AD Properties</h3>                
+        </li>
+    </ul>
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp data-table-properties">
+        <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">Name</th>
+                <th class="mdl-data-table__cell--non-numeric">Normalized name</th>
+                <th class="mdl-data-table__cell--non-numeric">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let property of properties">
+                <td class="mdl-data-table__cell--non-numeric">{{property.Name}}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{property.NormalizedName}}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{property.Description}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

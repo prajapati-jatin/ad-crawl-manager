@@ -1,7 +1,10 @@
-<h3>Admin</h3>
-<nav>
-    <a routerLink="./" routerLinkActive="active"
-    [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
-    <a routerLink="./categories" routerLinkActive="active">Categories</a>
-</nav>
-<router-outlet></router-outlet>
+<h3 class="secondary-font">Dashboard</h3>
+<div class="mdl-card mdl-shadow--2dp card-fullwidth">
+    <div class="mdl-card__supporting-text">
+        <ul class="inline">
+            <li>
+                <a routerLink="/admin/application/add" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent">Add application</a>
+            </li>
+        </ul>
+    </div>
+</div>

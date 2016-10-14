@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { HttpIntercepter } from '../global/httpintercepter';
 
 import { Logger } from './logger.service';
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class UserService{    
     
-    constructor(private logger: Logger, private http: HttpIntercepter) { 
+    constructor(private logger: Logger, private http: Http) { 
         
     };
 
@@ -24,14 +23,11 @@ export class UserService{
     }
     
     logout(): Promise<boolean>{
-        console.log('In userService logout');
-        //let url = '/signoff';
-        let url = '/api/users/current';
+        let url = '/signoff';
+        //let url = '/api/users/current';
         console.log(url);
         try{
             return this.http.get(url).toPromise().then(res => {
-                console.log(res.statusText);
-                console.log(res);
                 if(res.statusText === "OK"){
                     return true;
                 }
@@ -63,7 +59,7 @@ export class UserService{
     }
     
     private getRequestOptions(){
-        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.token });
+        let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('auth_token') });
         let options = new RequestOptions({ headers: headers });
         return options;
     }

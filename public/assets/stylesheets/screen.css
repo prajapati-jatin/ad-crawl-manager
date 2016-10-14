@@ -4,7 +4,7 @@ body .primary-font {
   font-family: "David Libre", serif;
 }
 /* line 10, ../sass/screen.scss */
-body .secondary-font, body .app-header .app-title, body .app-navigation-container .app-navigation .mdl-navigation__link, body .app-menu .mdl-menu__item {
+body .secondary-font, body .app-header .app-title, body .app-navigation .mdl-navigation__link, body .app-menu .mdl-menu__item {
   font-family: "Signika", sans-serif;
 }
 /* line 13, ../sass/screen.scss */
@@ -14,17 +14,49 @@ body .mdl-spinner {
   margin-right: auto;
   margin-top: 5%;
 }
-/* line 22, ../sass/screen.scss */
+/* line 19, ../sass/screen.scss */
+body .no-padding-margin {
+  padding: 0;
+  margin: 0;
+}
+/* line 23, ../sass/screen.scss */
+body ul.inline {
+  padding: 0;
+  margin: 0;
+}
+/* line 26, ../sass/screen.scss */
+body ul.inline li {
+  display: inline-block;
+  vertical-align: middle;
+}
+/* line 30, ../sass/screen.scss */
+body ul.inline.bottom-gutter-20 {
+  margin-bottom: 20px;
+}
+/* line 37, ../sass/screen.scss */
 body .app-header .app-title a {
   color: #FFF;
   text-decoration: none;
 }
-/* line 25, ../sass/screen.scss */
+/* line 40, ../sass/screen.scss */
 body .app-header .app-title a:hover {
   text-decoration: none;
 }
-/* line 44, ../sass/screen.scss */
+/* line 60, ../sass/screen.scss */
 body .card-in-center {
   margin-left: auto;
   margin-right: auto;
+}
+/* line 64, ../sass/screen.scss */
+body .card-fullwidth {
+  width: 100%;
+  min-height: auto;
+}
+/* line 68, ../sass/screen.scss */
+body .section-title {
+  padding-left: 15px;
+}
+/* line 71, ../sass/screen.scss */
+body .data-table-properties {
+  width: 100%;
 }

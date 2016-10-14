@@ -1,4 +1,4 @@
-import { Http, Response, Request, Headers, RequestOptions, ConnectionBackend, RequestOptionsArgs } from '@angular/http';
+import { Http, Response, Request, Headers, RequestOptions, XHRBackend, ConnectionBackend, RequestOptionsArgs } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 

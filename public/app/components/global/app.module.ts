@@ -14,6 +14,8 @@ import { UserService } from '../services/user.service';
 import { Logger } from '../services/logger.service';
 import { SharedDataService } from '../services/shareddata.service';
 import { NotificationService } from '../services/notification.service';
+import { Router } from '@angular/router';
+import { ADPropertiesService } from '../services/adproperties.service';
 
 import { routing, appRoutingProviders } from './app.routing';
 
@@ -21,9 +23,13 @@ import { routing, appRoutingProviders } from './app.routing';
     imports: [ BrowserModule, FormsModule, HttpModule, JsonpModule, routing  ],
     declarations: [ AppComponent, HomeComponent, LoginComponent, LogoutComponent, 
     AboutComponent, ContactComponent ],
-    providers: [ UserService, Logger, appRoutingProviders, SharedDataService, NotificationService ],
+    providers: [ UserService, Logger, appRoutingProviders, SharedDataService, NotificationService,
+    ADPropertiesService ],
     bootstrap: [ AppComponent ]
 })
+
+// { provide: Http, useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) => new HttpIntercepter(xhrBackend, requestOptions, router),
+//         deps: [XHRBackend, RequestOptions, Router]}
 
 export class AppModule {
     

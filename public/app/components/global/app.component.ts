@@ -41,7 +41,7 @@ export class AppComponent implements AfterViewInit, OnInit {
     onLogout(){
         this.authService.logout().then(res => {
             if(res){
-                //window.location.assign('/');
+                window.location.assign('/');
             }
         }).catch(err => {
             console.log('logout error');

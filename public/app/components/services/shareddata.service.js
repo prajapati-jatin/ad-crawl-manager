@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
 var SharedDataService = (function () {
     function SharedDataService() {
         this.isLoggedIn = false;
@@ -26,6 +27,11 @@ var SharedDataService = (function () {
     };
     SharedDataService.prototype.getRedirectUrl = function () {
         return this.redirectUrl;
+    };
+    SharedDataService.prototype.getRequestOptions = function () {
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('auth_token') });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return options;
     };
     SharedDataService = __decorate([
         core_1.Injectable(), 

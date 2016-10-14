@@ -31,11 +31,9 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
 
     private checkLogin(url: string): boolean{        
         //If user is logged in then return true.
-        console.log('Is logged in: ' + this.sharedData.IsLoggedIn());
         if(this.sharedData.IsLoggedIn()){            
             return true;
         }
-        console.log(url);
         //Store the attempted URL for redirecting
         this.sharedData.setRedirectUrl(url);
         

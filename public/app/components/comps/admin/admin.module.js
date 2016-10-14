@@ -14,6 +14,9 @@ var admin_component_1 = require('./admin.component');
 var admin_routing_1 = require('./admin.routing');
 var admin_dashboard_component_1 = require('./admin-dashboard.component');
 var admin_categories_component_1 = require('./admin-categories.component');
+var admin_adproperties_component_1 = require('./admin-adproperties.component');
+var admin_application_add_component_1 = require('./admin-application-add.component');
+var admin_applications_component_1 = require('./admin-applications.component');
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -26,7 +29,10 @@ var AdminModule = (function () {
             declarations: [
                 admin_component_1.AdminComponent,
                 admin_dashboard_component_1.AdminDashboardComponent,
-                admin_categories_component_1.CategoriesComponent
+                admin_categories_component_1.CategoriesComponent,
+                admin_application_add_component_1.AdminAddApplicationComponent,
+                admin_adproperties_component_1.AdminADPropertiesComponent,
+                admin_applications_component_1.AdminApplicationsComponent
             ]
         }), 
         __metadata('design:paramtypes', [])
