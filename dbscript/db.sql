@@ -1,88 +1,11 @@
-USE [master]
-GO
-/****** Object:  Database [ADCrawler]    Script Date: 10/7/2016 2:50:01 PM ******/
-CREATE DATABASE [ADCrawler]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'ADCrawler', FILENAME = N'C:\Program Files (x86)\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\ADCrawler.mdf' , SIZE = 4096KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'ADCrawler_log', FILENAME = N'C:\Program Files (x86)\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\ADCrawler_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
-GO
-ALTER DATABASE [ADCrawler] SET COMPATIBILITY_LEVEL = 110
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [ADCrawler].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-ALTER DATABASE [ADCrawler] SET ANSI_NULL_DEFAULT OFF 
-GO
-ALTER DATABASE [ADCrawler] SET ANSI_NULLS OFF 
-GO
-ALTER DATABASE [ADCrawler] SET ANSI_PADDING OFF 
-GO
-ALTER DATABASE [ADCrawler] SET ANSI_WARNINGS OFF 
-GO
-ALTER DATABASE [ADCrawler] SET ARITHABORT OFF 
-GO
-ALTER DATABASE [ADCrawler] SET AUTO_CLOSE OFF 
-GO
-ALTER DATABASE [ADCrawler] SET AUTO_CREATE_STATISTICS ON 
-GO
-ALTER DATABASE [ADCrawler] SET AUTO_SHRINK OFF 
-GO
-ALTER DATABASE [ADCrawler] SET AUTO_UPDATE_STATISTICS ON 
-GO
-ALTER DATABASE [ADCrawler] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-ALTER DATABASE [ADCrawler] SET CURSOR_DEFAULT  GLOBAL 
-GO
-ALTER DATABASE [ADCrawler] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-ALTER DATABASE [ADCrawler] SET NUMERIC_ROUNDABORT OFF 
-GO
-ALTER DATABASE [ADCrawler] SET QUOTED_IDENTIFIER OFF 
-GO
-ALTER DATABASE [ADCrawler] SET RECURSIVE_TRIGGERS OFF 
-GO
-ALTER DATABASE [ADCrawler] SET  DISABLE_BROKER 
-GO
-ALTER DATABASE [ADCrawler] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-ALTER DATABASE [ADCrawler] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-ALTER DATABASE [ADCrawler] SET TRUSTWORTHY OFF 
-GO
-ALTER DATABASE [ADCrawler] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-ALTER DATABASE [ADCrawler] SET PARAMETERIZATION SIMPLE 
-GO
-ALTER DATABASE [ADCrawler] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-ALTER DATABASE [ADCrawler] SET HONOR_BROKER_PRIORITY OFF 
-GO
-ALTER DATABASE [ADCrawler] SET RECOVERY FULL 
-GO
-ALTER DATABASE [ADCrawler] SET  MULTI_USER 
-GO
-ALTER DATABASE [ADCrawler] SET PAGE_VERIFY CHECKSUM  
-GO
-ALTER DATABASE [ADCrawler] SET DB_CHAINING OFF 
-GO
-ALTER DATABASE [ADCrawler] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-ALTER DATABASE [ADCrawler] SET TARGET_RECOVERY_TIME = 0 SECONDS 
-GO
-EXEC sys.sp_db_vardecimal_storage_format N'ADCrawler', N'ON'
-GO
 USE [ADCrawler]
 GO
-/****** Object:  User [adcrawleradmin]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  User [adcrawleradmin]    Script Date: 10/14/2016 4:19:03 PM ******/
 CREATE USER [adcrawleradmin] FOR LOGIN [adcrawleradmin] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [adcrawleradmin]
 GO
-/****** Object:  StoredProcedure [dbo].[AuthenticateUser]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[AuthenticateUser]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -106,7 +29,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[CreateRole]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[CreateRole]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -131,7 +54,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[CreateUser]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[CreateUser]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -174,7 +97,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[DeleteRoleById]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[DeleteRoleById]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -197,7 +120,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[DeleteRoleByName]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[DeleteRoleByName]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -220,7 +143,30 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetRoleById]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetAllADProperties]    Script Date: 10/14/2016 4:19:03 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jatin Prajapati
+-- Create date: 14 October 2016
+-- Description:	Gets all the ad properties defined in the database.
+-- =============================================
+CREATE PROCEDURE [dbo].[GetAllADProperties] 
+	
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT Id, Name, NormalizedName, Description from ADProperties order by Name;
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[GetRoleById]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -243,7 +189,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetRoleByName]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetRoleByName]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -266,7 +212,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetRoles]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetRoles]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -289,7 +235,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetUserByName]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetUserByName]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -314,7 +260,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -339,7 +285,7 @@ BEGIN
 END
 
 GO
-/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -354,7 +300,24 @@ CREATE TABLE [dbo].[__EFMigrationsHistory](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  Table [dbo].[ADProperties]    Script Date: 10/14/2016 4:19:03 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ADProperties](
+	[Id] [uniqueidentifier] ROWGUIDCOL  NOT NULL,
+	[Name] [nvarchar](256) NOT NULL,
+	[NormalizedName] [nvarchar](256) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+ CONSTRAINT [PK_ADProperties] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -371,7 +334,7 @@ CREATE TABLE [dbo].[AspNetRoleClaims](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -388,7 +351,7 @@ CREATE TABLE [dbo].[AspNetRoles](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -405,7 +368,7 @@ CREATE TABLE [dbo].[AspNetUserClaims](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -423,7 +386,7 @@ CREATE TABLE [dbo].[AspNetUserLogins](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -439,7 +402,7 @@ CREATE TABLE [dbo].[AspNetUserRoles](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 10/7/2016 2:50:01 PM ******/
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 10/14/2016 4:19:03 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -467,32 +430,99 @@ CREATE TABLE [dbo].[AspNetUsers](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-SET ANSI_PADDING ON
-
+INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'00000000000000_CreateIdentitySchema', N'7.0.0-rc1-16348')
 GO
-/****** Object:  Index [RoleNameIndex]    Script Date: 10/7/2016 2:50:01 PM ******/
-CREATE NONCLUSTERED INDEX [RoleNameIndex] ON [dbo].[AspNetRoles]
-(
-	[NormalizedName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'dd67a444-07e5-493b-81a2-0318afeec98a', N'l', N'l', N'City name')
 GO
-SET ANSI_PADDING ON
-
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'4be0e990-aea0-463c-aa55-0af9ee6ea11d', N'assistant', N'assistant', NULL)
 GO
-/****** Object:  Index [EmailIndex]    Script Date: 10/7/2016 2:50:01 PM ******/
-CREATE NONCLUSTERED INDEX [EmailIndex] ON [dbo].[AspNetUsers]
-(
-	[NormalizedEmail] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'e477b4ec-ec67-485f-8abb-0be2bc2b800a', N'givenName', N'givenname', N'First name')
 GO
-SET ANSI_PADDING ON
-
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'a9067b34-ddc3-4883-84d0-0f7645e97464', N'c', N'c', N'Country Abbreviatiion')
 GO
-/****** Object:  Index [UserNameIndex]    Script Date: 10/7/2016 2:50:01 PM ******/
-CREATE NONCLUSTERED INDEX [UserNameIndex] ON [dbo].[AspNetUsers]
-(
-	[NormalizedUserName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'64eecdef-17cd-413a-98e7-235690d55b2d', N'telephoneNumber', N'telephonenumber', N'Telephone number')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'6693092c-f238-4e4b-a8a9-2553bd62ffb8', N'middleName', N'middlename', N'Middle name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'0b71595e-5e2f-4bce-b8c2-27beca474d67', N'division', N'division', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'ad79f794-a486-40e5-9d3f-3cf04bfe4f67', N'sn', N'sn', N'Last name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'542fb452-90c2-434f-be74-42589018b655', N'displayName', N'displayname', N'Display name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'0657440d-6a84-469a-ae72-43fab9e409d1', N'ipPhone', N'ipphone', N'IP Phone Number')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'f0b8c181-c1f5-4708-87cd-51d41afb8ceb', N'cn', N'cn', N'Connection name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'75b60a81-66ad-4060-9852-5371e2435019', N'info', N'info', N'Notes')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'633b8462-404f-49b4-9eb0-5b709f981775', N'department', N'department', N'Department name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'efa935b5-44a2-4099-a1f3-5b7e9f5fbbab', N'distinguisedName', N'distinguishedname', N'X500 distinguished name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'2b33925f-c1e3-4184-b83a-63e25c0c2cd4', N'canonicalName', N'canonicalname', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'77b2431a-8cb5-437d-92cb-6ff70972ccc0', N'description', N'description', N'Description')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'd44e300d-beb5-4ae7-817b-75cff14f538d', N'company', N'company', N'Company')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'67b0f483-ca67-469b-a01a-80331dcc806d', N'mobile', N'mobile', N'Mobile number')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'ec6db4e3-b8f5-41e6-baa3-87fb1b0ac02d', N'streetAddress', N'streetaddress', N'Street address')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'cc185ea5-332f-4001-a495-8d7974cbf010', N'mail', N'mail', N'Email address')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'e9987a11-1a1c-4a35-afdc-904ed6ccfad7', N'url', N'url', N'Web Page Address')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'3bb9e14d-d945-4f50-bd7a-9293019b27a7', N'facsimileTelephoneNumber', N'facsimiletelephonenumber', N'Fax Number')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'1fe418b5-40d5-448e-a14e-93a181e3bd06', N'personalTitle', N'personaltitle', N'Title')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'3324b04a-4e4a-4b95-b606-9ada7ab74047', N'sAMAccountName', N'samaccountname', N'Logon name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'2cbf79c7-16da-4e6b-9bea-a0de2d21eb1d', N'userPrincipalName', N'userprincipalname', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'858fae7b-c0f1-4454-8d8e-a1546f8595d7', N'co', N'co', N'Country name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'ae527f8e-3cfe-4a1a-945b-a1e034cf0d2b', N'st', N'st', N'State / province')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'66fb7a08-497a-4ff2-96a4-aceb1966e86a', N'title', N'title', N'Job Title')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'2de35cfb-6cca-49af-9e3c-b75bf1f5a12a', N'memberOf', N'memberof', N'Group membership')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'83621a66-c1ce-482e-a4ae-b7cf242eee47', N'name', N'name', N'Name')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'31f044ee-f3e4-4e2b-b1f9-c3a76cdca17f', N'createTimeStamp', N'createtimestamp', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'1865d626-194a-4205-9a91-cf4b9198b995', N'adminDisplayName', N'admindisplayname', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'99be0dd4-c8bd-429d-91a9-da10c3fa7ca5', N'street', N'street', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'22b3e4f5-bb46-4c87-a797-db437fdd5c78', N'postalCode', N'postalcode', N'Postal code')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'd7cccf4d-3b93-4791-b903-de2db407c1f2', N'homePhone', N'homephone', N'Home phone')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'decd24bd-38cb-4f3d-99e0-e2532be06c29', N'initials', N'initials', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'93456de1-3946-4e1f-aabf-e5a7c9d33339', N'adminDescription', N'admindescription', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'93c7f2e1-49b4-4f9e-9a65-e6f6eca1d79c', N'manager', N'manager', N'Manager')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'ed0c9c81-f475-49ec-a4a7-e8385713da3e', N'comment', N'comment', N'Comment')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'f9221364-2e2b-43ac-8857-ef93402e8bff', N'homePostalAddress', N'homepostaladdress', N'Home address')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'9e409bf4-4cb1-43d2-a74f-f08d86f88099', N'employeeID', N'employeeid', NULL)
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'9beef722-d9df-4e03-8b48-f6ede89f8326', N'directReports', N'directreports', N'Direct reports')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'cbf06f3a-eb07-41bb-a8b6-f949ae37c3a4', N'countryCode', N'countrycode', N'Country code')
+GO
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description]) VALUES (N'1968e413-0cc0-4998-ba58-fdc603e26848', N'postOfficeBox', N'postofficebox', N'Post office box')
+GO
+INSERT [dbo].[AspNetUsers] ([Id], [AccessFailedCount], [ConcurrencyStamp], [Email], [EmailConfirmed], [LockoutEnabled], [LockoutEnd], [NormalizedEmail], [NormalizedUserName], [PasswordHash], [PhoneNumber], [PhoneNumberConfirmed], [SecurityStamp], [TwoFactorEnabled], [UserName]) VALUES (N'0d82b973-1b95-460c-8587-5517ed909343', 0, N'01e00fe1-0d3b-4907-b3ab-53f8a96d8c17', N'jatin.prajapati@outlook.com', 1, 0, NULL, N'JATIN.PRAJAPATI@OUTLOOK.COM', N'JATIN.PRAJAPATI@OUTLOOK.COM', N'$2a$10$kKtG9xvJStxt0FRrgftLTu2wWdiZlYc/ZzDru/7Y8mXHblbaGpDKa', N'8511946279', 1, NULL, 0, N'jatin.prajapati@outlook.com')
+GO
+ALTER TABLE [dbo].[ADProperties] ADD  CONSTRAINT [DF_ADProperties_Id]  DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [dbo].[AspNetRoleClaims]  WITH CHECK ADD  CONSTRAINT [FK_IdentityRoleClaim<string>_IdentityRole_RoleId] FOREIGN KEY([RoleId])
 REFERENCES [dbo].[AspNetRoles] ([Id])
@@ -518,8 +548,4 @@ ALTER TABLE [dbo].[AspNetUserRoles]  WITH CHECK ADD  CONSTRAINT [FK_IdentityUser
 REFERENCES [dbo].[AspNetRoles] ([Id])
 GO
 ALTER TABLE [dbo].[AspNetUserRoles] CHECK CONSTRAINT [FK_IdentityUserRole<string>_IdentityRole_RoleId]
-GO
-USE [master]
-GO
-ALTER DATABASE [ADCrawler] SET  READ_WRITE 
 GO
