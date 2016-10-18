@@ -3,7 +3,9 @@ import { OnInit } from '@angular/core';
 import { ADPropertiesService } from '../../services/adproperties.service';
 import { Logger } from '../../services/logger.service';
 
+//To avoid 'name not found' warning from TypeScript, define a variable of type any.
 declare var dialogPolyfill: any;
+declare var componentHandler: any;
 
 @Component({
     templateUrl: '/views/admin/ad-properties.html'
@@ -54,6 +56,15 @@ export class AdminADPropertiesComponent implements OnInit{
 
     ngOnInit(){
         this.loadADProperties();
+    }
+
+    ngAfterViewInit(){
+        setTimeout(function(){
+            $('[class*="mdl-js-"]').each(function(i, element){
+               //console.log(element);
+               componentHandler.upgradeElement(element);
+           });
+        }, 1000);
     }
 
     private loadADProperties(){

@@ -52,6 +52,14 @@ var AdminADPropertiesComponent = (function () {
     AdminADPropertiesComponent.prototype.ngOnInit = function () {
         this.loadADProperties();
     };
+    AdminADPropertiesComponent.prototype.ngAfterViewInit = function () {
+        setTimeout(function () {
+            $('[class*="mdl-js-"]').each(function (i, element) {
+                //console.log(element);
+                componentHandler.upgradeElement(element);
+            });
+        }, 1000);
+    };
     AdminADPropertiesComponent.prototype.loadADProperties = function () {
         var _this = this;
         this.adpropertiesService.listproperties().subscribe(function (res) {

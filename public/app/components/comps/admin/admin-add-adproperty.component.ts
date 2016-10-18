@@ -18,7 +18,7 @@ export class AdminAddADPropertyComponent{
 
     }
 
-    model = new ADProperty('', '');
+    model = new ADProperty('', '', false);
 
     onSubmit(){
         console.log(this.model);

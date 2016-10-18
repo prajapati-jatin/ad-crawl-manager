@@ -20,6 +20,10 @@
                     <input class="mdl-textfield__input" type="text" id="description" name="description" [(ngModel)]="model.Description" #description="ngModel">
                     <label class="mdl-textfield__label" for="description">Description</label>
                 </div>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cbAsDefault">
+                    <input type="checkbox" id="cbAsDefault" class="mdl-checkbox__input">
+                    <span class="mdl-checkbox__label">Available as default</span>
+                </label>
                 <div class="mdl-textfield mdl-js-textfield">                    
                     <label class="mdl-textfield__label">{{model.NormalizedName}}</label>
                 </div>

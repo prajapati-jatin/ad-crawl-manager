@@ -20,7 +20,7 @@ var AdminAddADPropertyComponent = (function () {
         this.logger = logger;
         this.router = router;
         this.notificationService = notificationService;
-        this.model = new adproperty_1.ADProperty('', '');
+        this.model = new adproperty_1.ADProperty('', '', false);
     }
     AdminAddADPropertyComponent.prototype.onSubmit = function () {
         var _this = this;

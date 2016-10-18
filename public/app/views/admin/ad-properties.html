@@ -14,8 +14,8 @@
             <tr>
                 <th class="mdl-data-table__cell--non-numeric">Name</th>
                 <th class="mdl-data-table__cell--non-numeric">Normalized name</th>
-                <th class="mdl-data-table__cell--non-numeric" colspan="2">Description</th>
-                
+                <th class="mdl-data-table__cell--non-numeric">Description</th>
+                <th class="mdl-data-table__cell--non-numeric" colspan="2">Available as default</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +23,12 @@
                 <td class="mdl-data-table__cell--non-numeric">{{property.Name}}</td>
                 <td class="mdl-data-table__cell--non-numeric">{{property.NormalizedName}}</td>
                 <td class="mdl-data-table__cell--non-numeric">{{property.Description}}</td>
+                <td class="mdl-data-table__cell--non-numeric">
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" [attr.for]="'switch-' + property.Id">
+                        <input type="checkbox" id="switch-{{property.Id}}" class="mdl-switch__input" [checked]="property.AvailableAsDefault">
+                        <span class="mdl-switch__label"></span>
+                    </label> 
+                </td>
                 <td>
                     <button (click)="deleteADProperty(property)" id="btn-delete-{{property.Id}}" class="mdl-button mdl-js-button mdl-button--icon">
                         <i class="material-icons">delete</i>
