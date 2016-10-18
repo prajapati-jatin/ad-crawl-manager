@@ -7,6 +7,8 @@ var adproperties = require('server/services/adproperties.service');
  * API definition
  */
 router.get('/list', getAllADProperties);
+router.post('/add', addADProperty);
+router.delete('/:id', deleteADPropertyById);
 
 module.exports = router;
 
@@ -19,4 +21,22 @@ function getAllADProperties(req, res){
     }).catch(function(err){
         res.status(400).send(err);
     });
+}
+
+function addADProperty(req, res){
+    adproperties.addADProperty(req.body).then(function(resp){
+        console.log(resp);
+        res.send(resp);
+    }).catch(function(error){
+        res.status(400).send(error);
+    })
+}
+
+function deleteADPropertyById(req, res){
+    console.log(req.params.id);
+    adproperties.deleteADPropertyById(req.params.id).then(function(resp){
+        res.send(resp);
+    }).catch(function(error){
+        res.status(400).send(error);
+    })
 }

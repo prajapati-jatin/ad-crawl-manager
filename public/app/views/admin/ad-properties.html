@@ -14,7 +14,8 @@
             <tr>
                 <th class="mdl-data-table__cell--non-numeric">Name</th>
                 <th class="mdl-data-table__cell--non-numeric">Normalized name</th>
-                <th class="mdl-data-table__cell--non-numeric">Description</th>
+                <th class="mdl-data-table__cell--non-numeric" colspan="2">Description</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -22,7 +23,15 @@
                 <td class="mdl-data-table__cell--non-numeric">{{property.Name}}</td>
                 <td class="mdl-data-table__cell--non-numeric">{{property.NormalizedName}}</td>
                 <td class="mdl-data-table__cell--non-numeric">{{property.Description}}</td>
+                <td>
+                    <button (click)="deleteADProperty(property)" id="btn-delete-{{property.Id}}" class="mdl-button mdl-js-button mdl-button--icon">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
 </div>
+<a routerLink="/admin/adproperties/add" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored app-button--add-adproperty">
+  <i class="material-icons">add</i>
+</a>

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
+var forms_1 = require('@angular/forms');
 var admin_component_1 = require('./admin.component');
 var admin_routing_1 = require('./admin.routing');
 var admin_dashboard_component_1 = require('./admin-dashboard.component');
@@ -17,6 +18,7 @@ var admin_categories_component_1 = require('./admin-categories.component');
 var admin_adproperties_component_1 = require('./admin-adproperties.component');
 var admin_application_add_component_1 = require('./admin-application-add.component');
 var admin_applications_component_1 = require('./admin-applications.component');
+var admin_add_adproperty_component_1 = require('./admin-add-adproperty.component');
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -24,7 +26,8 @@ var AdminModule = (function () {
         core_1.NgModule({
             imports: [
                 common_1.CommonModule,
-                admin_routing_1.adminRouting
+                admin_routing_1.adminRouting,
+                forms_1.FormsModule
             ],
             declarations: [
                 admin_component_1.AdminComponent,
@@ -32,7 +35,8 @@ var AdminModule = (function () {
                 admin_categories_component_1.CategoriesComponent,
                 admin_application_add_component_1.AdminAddApplicationComponent,
                 admin_adproperties_component_1.AdminADPropertiesComponent,
-                admin_applications_component_1.AdminApplicationsComponent
+                admin_applications_component_1.AdminApplicationsComponent,
+                admin_add_adproperty_component_1.AdminAddADPropertyComponent
             ]
         }), 
         __metadata('design:paramtypes', [])

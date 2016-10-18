@@ -56,8 +56,7 @@ mssqldbstore.executeQuery = function(procedureName, inputParameters, outputParam
             });
         }
 
-        request.execute(procedureName).then(function(recordset){
-            //console.log(recordset);
+        request.execute(procedureName).then(function(recordset){            
             dfd.resolve(recordset);
         }).catch(function(error){
             //TODO: Check for errors.
@@ -65,7 +64,6 @@ mssqldbstore.executeQuery = function(procedureName, inputParameters, outputParam
             console.log(error);
             dfd.reject();
         });
-        //dfd.resolve();
     }).catch(function(error){
         console.log('In error connect');
         console.log(error);

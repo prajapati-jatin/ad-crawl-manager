@@ -20,3 +20,5 @@ http://mean.expert/2016/05/21/angular-2-component-communication/
 
 ## Data related codes
 1. No data found (-2001)
+2. Error in creating AD Property. (-2002)
+3. AD property with given name already exists (-2003)

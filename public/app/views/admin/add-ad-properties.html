@@ -1,0 +1,32 @@
+<div class="ad-properties">
+    <ul class="inline bottom-gutter-20">
+        <li>
+            <a routerLink="/admin/adproperties" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+                <i class="material-icons">keyboard_arrow_left</i>
+            </a>
+        </li>
+        <li>
+            <h3 class="no-padding-margin secondary-font section-title">Add new AD Property</h3>                
+        </li>
+    </ul>
+    <form id="formaddadproperty" class="form" (ngSubmit)="onSubmit()" #formaddadproperty="ngForm">
+        <div class="mdl-card mdl-shadow--2dp card--add-adproperty">
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" required name="name" id="name" [(ngModel)]="model.Name" (keyup)="onNameKeyup(name.value)" #name="ngModel">
+                    <label class="mdl-textfield__label" for="name">Name</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="description" name="description" [(ngModel)]="model.Description" #description="ngModel">
+                    <label class="mdl-textfield__label" for="description">Description</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">                    
+                    <label class="mdl-textfield__label">{{model.NormalizedName}}</label>
+                </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--accent">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

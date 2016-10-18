@@ -18,12 +18,28 @@ var ADPropertiesService = (function () {
         this.http = http;
         this.sharedData = sharedData;
         this.urlListProperties = '/api/adproperties/list';
+        this.urlAddProperty = '/api/adproperties/add';
+        this.urlDeleteADProperty = '/api/adproperties/';
     }
     /**
      * Service request handler to list properties.
      */
     ADPropertiesService.prototype.listproperties = function () {
         return this.http.get(this.urlListProperties, this.sharedData.getRequestOptions()).map(function (resp) { return resp.json(); })
+            .map(function (resp) {
+            return resp;
+        });
+    };
+    ADPropertiesService.prototype.addproperty = function (data) {
+        return this.http.post(this.urlAddProperty, data, this.sharedData.getRequestOptions()).map(function (resp) {
+            return resp.json();
+        }).map(function (resp) {
+            return resp;
+        });
+    };
+    ADPropertiesService.prototype.deleteadproperty = function (id) {
+        return this.http.delete(this.urlDeleteADProperty + id, this.sharedData.getRequestOptions())
+            .map(function (resp) { return resp.json(); })
             .map(function (resp) {
             return resp;
         });

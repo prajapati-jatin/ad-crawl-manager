@@ -12,6 +12,8 @@ export class ADPropertiesService{
     }
 
     urlListProperties = '/api/adproperties/list';
+    urlAddProperty = '/api/adproperties/add';
+    urlDeleteADProperty = '/api/adproperties/';
 
     /**
      * Service request handler to list properties.
@@ -21,5 +23,21 @@ export class ADPropertiesService{
             .map(resp => {
                 return resp;
             });
+    }
+
+    addproperty(data){
+        return this.http.post(this.urlAddProperty, data, this.sharedData.getRequestOptions()).map(resp => {
+            return resp.json()
+        }).map(resp => {
+            return resp;
+        });
+    }
+
+    deleteadproperty(id){
+        return this.http.delete(this.urlDeleteADProperty + id, this.sharedData.getRequestOptions())
+                    .map(resp => resp.json())
+                    .map(resp => {
+                        return resp;
+                    });
     }
 }

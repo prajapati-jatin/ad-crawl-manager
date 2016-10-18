@@ -17,7 +17,42 @@ var AdminADPropertiesComponent = (function () {
         this.logger = logger;
         this.properties = [];
     }
+    AdminADPropertiesComponent.prototype.deleteADProperty = function (property) {
+        var component = this;
+        var logger = this.logger;
+        console.log('Delete property having id ' + property.Id);
+        var propertyToDelete = property.Id;
+        var dialog = document.querySelector('dialog');
+        if (!dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        $('dialog .mdl-dialog__title').html('Delete AD property?');
+        $('dialog .mdl-dialog__content p').html('Are you sure you want to delete ' + property.Name + '?');
+        dialog.showModal();
+        $('dialog .close').click(function () {
+            dialog.close();
+        });
+        $('dialog .confirm').click(function () {
+            $('dialog .close, dialog .confirm').hide();
+            $('dialog .mdl-spinner').removeClass('hidden').addClass('is-active');
+            component.adpropertiesService.deleteadproperty(propertyToDelete).subscribe(function (resp) {
+                console.log(resp);
+                if (resp.success) {
+                    component.loadADProperties();
+                    $('dialog .mdl-spinner').removeClass('is-active').addClass('hidden');
+                    $('dialog .close, dialog .confirm').show();
+                    dialog.close();
+                    logger.showNotification('Property "' + property.Name + ' has been deleted.', 'success');
+                }
+                $('dialog .close, dialog .confirm').unbind('click');
+                $('dialog .confirm').unbind('click');
+            });
+        });
+    };
     AdminADPropertiesComponent.prototype.ngOnInit = function () {
+        this.loadADProperties();
+    };
+    AdminADPropertiesComponent.prototype.loadADProperties = function () {
         var _this = this;
         this.adpropertiesService.listproperties().subscribe(function (res) {
             if (res.success) {

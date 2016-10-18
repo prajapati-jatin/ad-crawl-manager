@@ -4,7 +4,9 @@ body .primary-font {
   font-family: "David Libre", serif;
 }
 /* line 10, ../sass/screen.scss */
-body .secondary-font, body .app-header .app-title, body .app-navigation .mdl-navigation__link, body .app-menu .mdl-menu__item {
+body .secondary-font, body .app-header .app-title, body .app-navigation .mdl-navigation__link, body .app-menu .mdl-menu__item, body .data-table-properties tr th,
+body .data-table-properties tr td, body .form .mdl-textfield__input,
+body .form .mdl-textfield__label {
   font-family: "Signika", sans-serif;
 }
 /* line 13, ../sass/screen.scss */
@@ -59,4 +61,18 @@ body .section-title {
 /* line 71, ../sass/screen.scss */
 body .data-table-properties {
   width: 100%;
+}
+/* line 74, ../sass/screen.scss */
+body .data-table-properties tr th,
+body .data-table-properties tr td {
+  font-size: 15px;
+}
+/* line 81, ../sass/screen.scss */
+body .app-button--add-adproperty {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin-right: 95px;
+  margin-bottom: 30px;
+  z-index: 900;
 }
