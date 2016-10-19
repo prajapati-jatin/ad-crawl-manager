@@ -1,11 +1,11 @@
 USE [ADCrawler]
 GO
-/****** Object:  User [adcrawleradmin]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  User [adcrawleradmin]    Script Date: 10/19/2016 2:43:18 PM ******/
 CREATE USER [adcrawleradmin] FOR LOGIN [adcrawleradmin] WITH DEFAULT_SCHEMA=[dbo]
 GO
 ALTER ROLE [db_owner] ADD MEMBER [adcrawleradmin]
 GO
-/****** Object:  StoredProcedure [dbo].[AddADProperty]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[AddADProperty]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -33,7 +33,32 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[AuthenticateUser]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[AddApplication]    Script Date: 10/19/2016 2:43:18 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jatin Prajapati
+-- Create date: 19 October 2016
+-- Description:	Add a new application
+-- =============================================
+CREATE PROCEDURE [dbo].[AddApplication]
+	@Id	nvarchar(450),
+	@Name	nvarchar(256),
+	@Description	nvarchar(max),
+	@Settings	xml
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    Insert into Applications values(@Id, @Name, @Description, @Settings);
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[AuthenticateUser]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -57,7 +82,30 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[CreateRole]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[ChangeDefaultFlagForADProperty]    Script Date: 10/19/2016 2:43:18 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Jatin Prajapati
+-- Create date: 19 October 2016
+-- Description:	Changes the default flag for ad property.
+-- =============================================
+CREATE PROCEDURE [dbo].[ChangeDefaultFlagForADProperty] 
+	@Id	uniqueidentifier,
+	@Flag	bit
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    Update ADProperties set AvailableAsDefault = @Flag where Id = @Id;
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[CreateRole]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -82,7 +130,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[CreateUser]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[CreateUser]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -125,7 +173,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[DeleteADPropertyById]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[DeleteADPropertyById]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -147,7 +195,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[DeleteRoleById]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[DeleteRoleById]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +218,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[DeleteRoleByName]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[DeleteRoleByName]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -193,7 +241,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetADPropertyByName]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetADPropertyByName]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -215,7 +263,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetAllADProperties]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetAllADProperties]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -238,7 +286,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetRoleById]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetRoleById]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -261,7 +309,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetRoleByName]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetRoleByName]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -284,7 +332,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetRoles]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetRoles]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -307,7 +355,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetUserByName]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetUserByName]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -332,7 +380,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  StoredProcedure [dbo].[GetUsers]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -357,7 +405,7 @@ BEGIN
 END
 
 GO
-/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -372,7 +420,7 @@ CREATE TABLE [dbo].[__EFMigrationsHistory](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ADProperties]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[ADProperties]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -390,7 +438,7 @@ CREATE TABLE [dbo].[ADProperties](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Applications]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[Applications]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -399,6 +447,7 @@ CREATE TABLE [dbo].[Applications](
 	[Id] [nvarchar](450) NOT NULL,
 	[Name] [nvarchar](256) NOT NULL,
 	[Description] [nvarchar](max) NULL,
+	[Settings] [xml] NULL,
  CONSTRAINT [PK_Applications] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -406,7 +455,7 @@ CREATE TABLE [dbo].[Applications](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[AspNetRoleClaims]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -423,7 +472,7 @@ CREATE TABLE [dbo].[AspNetRoleClaims](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[AspNetRoles]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -440,7 +489,7 @@ CREATE TABLE [dbo].[AspNetRoles](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[AspNetUserClaims]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -457,7 +506,7 @@ CREATE TABLE [dbo].[AspNetUserClaims](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[AspNetUserLogins]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -475,7 +524,7 @@ CREATE TABLE [dbo].[AspNetUserLogins](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[AspNetUserRoles]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -491,7 +540,7 @@ CREATE TABLE [dbo].[AspNetUserRoles](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 10/18/2016 2:45:22 PM ******/
+/****** Object:  Table [dbo].[AspNetUsers]    Script Date: 10/19/2016 2:43:18 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -519,27 +568,11 @@ CREATE TABLE [dbo].[AspNetUsers](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Settings]    Script Date: 10/18/2016 2:45:22 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Settings](
-	[Id] [nvarchar](450) NOT NULL,
-	[SettingKey] [nvarchar](256) NOT NULL,
-	[SettingValue] [nchar](10) NULL,
- CONSTRAINT [PK_Settings] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
 INSERT [dbo].[__EFMigrationsHistory] ([MigrationId], [ProductVersion]) VALUES (N'00000000000000_CreateIdentitySchema', N'7.0.0-rc1-16348')
 GO
 INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [AvailableAsDefault]) VALUES (N'dd67a444-07e5-493b-81a2-0318afeec98a', N'l', N'l', N'City name', 0)
 GO
-INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [AvailableAsDefault]) VALUES (N'4be0e990-aea0-463c-aa55-0af9ee6ea11d', N'assistant', N'assistant', NULL, 0)
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [AvailableAsDefault]) VALUES (N'4be0e990-aea0-463c-aa55-0af9ee6ea11d', N'assistant', N'assistant', NULL, 1)
 GO
 INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [AvailableAsDefault]) VALUES (N'e477b4ec-ec67-485f-8abb-0be2bc2b800a', N'givenName', N'givenname', N'First name', 0)
 GO
@@ -609,7 +642,7 @@ INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [Ava
 GO
 INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [AvailableAsDefault]) VALUES (N'decd24bd-38cb-4f3d-99e0-e2532be06c29', N'initials', N'initials', NULL, 0)
 GO
-INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [AvailableAsDefault]) VALUES (N'93456de1-3946-4e1f-aabf-e5a7c9d33339', N'adminDescription', N'admindescription', NULL, 0)
+INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [AvailableAsDefault]) VALUES (N'93456de1-3946-4e1f-aabf-e5a7c9d33339', N'adminDescription', N'admindescription', NULL, 1)
 GO
 INSERT [dbo].[ADProperties] ([Id], [Name], [NormalizedName], [Description], [AvailableAsDefault]) VALUES (N'93c7f2e1-49b4-4f9e-9a65-e6f6eca1d79c', N'manager', N'manager', N'Manager', 0)
 GO
