@@ -21,7 +21,7 @@
                     <label class="mdl-textfield__label" for="description">Description</label>
                 </div>
                 <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="cbAsDefault">
-                    <input type="checkbox" id="cbAsDefault" class="mdl-checkbox__input">
+                    <input type="checkbox" id="cbAsDefault" name="cbAsDefault" class="mdl-checkbox__input" [(ngModel)]="model.AvailableAsDefault" #availableasdefault="ngModel">
                     <span class="mdl-checkbox__label">Available as default</span>
                 </label>
                 <div class="mdl-textfield mdl-js-textfield">                    

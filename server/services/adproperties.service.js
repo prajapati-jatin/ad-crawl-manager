@@ -71,6 +71,11 @@ service.addADProperty = function(data){
                         type: 'nvarchar',
                         length: 'max',
                         value: data.Description
+                    },
+                    {
+                        name: 'AvailableAsDefault',
+                        type: 'bit',
+                        value: data.AvailableAsDefault
                     }
                 ];
                 dbstore.executeQuery('AddADProperty', inputParams, null).then(function(recordset){
@@ -116,6 +121,35 @@ service.deleteADPropertyById = function(id){
         console.log(recordset);
         dfd.resolve(resp);
     }).catch(function(error){
+        resp.success = false;
+        resp.data = error;
+        dfd.resolve(resp);
+    });
+    return dfd.promise;
+}
+
+service.changeADPropertyDefaultFlag = function(data){
+    var dfd = Q.defer();
+    var resp = {
+        success: true
+    }
+    var inputParams = [
+        {
+            name: 'Id',
+            type: 'uniqueidentifier',
+            value: data.Id,
+        },
+        {
+            name: 'Flag',
+            type: 'bit',
+            value: data.Flag
+        }
+    ];
+    dbstore.executeQuery('ChangeDefaultFlagForADProperty', inputParams).then(function(recordset){
+        resp.data = recordset;
+        dfd.resolve(resp);
+    })
+    .catch(function(error){
         resp.success = false;
         resp.data = error;
         dfd.resolve(resp);

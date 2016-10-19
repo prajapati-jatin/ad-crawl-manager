@@ -9,6 +9,7 @@ var adproperties = require('server/services/adproperties.service');
 router.get('/list', getAllADProperties);
 router.post('/add', addADProperty);
 router.delete('/:id', deleteADPropertyById);
+router.post('/changedefaultflag', changeADPropertyDefaultFlag);
 
 module.exports = router;
 
@@ -39,4 +40,12 @@ function deleteADPropertyById(req, res){
     }).catch(function(error){
         res.status(400).send(error);
     })
+}
+
+function changeADPropertyDefaultFlag(req, res){
+    adproperties.changeADPropertyDefaultFlag(req.body).then(function(resp){
+        res.send(resp);
+    }).catch(function(error){
+        res.status(400).send(error);
+    });
 }

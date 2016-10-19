@@ -17,6 +17,22 @@ export class AdminADPropertiesComponent implements OnInit{
 
     properties = [];
 
+    changeFlag(event, property){
+        var flag = event.target.checked;
+        console.log(flag);
+        var data = {
+            Id: property.Id,
+            Flag: flag
+        };
+        this.adpropertiesService.changedefaultflag(data).subscribe(resp => {
+            if(!resp.success){
+                if(resp.data === '' || resp.data === undefined){
+                    resp.data = 'Error occured. Please try again later';
+                }
+                this.logger.showNotification(resp.data, 'error');
+            }
+        });
+    }
     
 
     deleteADProperty(property){

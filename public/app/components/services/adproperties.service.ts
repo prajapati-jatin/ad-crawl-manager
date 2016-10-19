@@ -14,6 +14,7 @@ export class ADPropertiesService{
     urlListProperties = '/api/adproperties/list';
     urlAddProperty = '/api/adproperties/add';
     urlDeleteADProperty = '/api/adproperties/';
+    urlChangeDefaultFlag = '/api/adproperties/changedefaultflag';
 
     /**
      * Service request handler to list properties.
@@ -35,6 +36,14 @@ export class ADPropertiesService{
 
     deleteadproperty(id){
         return this.http.delete(this.urlDeleteADProperty + id, this.sharedData.getRequestOptions())
+                    .map(resp => resp.json())
+                    .map(resp => {
+                        return resp;
+                    });
+    }
+
+    changedefaultflag(data){
+        return this.http.post(this.urlChangeDefaultFlag, data, this.sharedData.getRequestOptions())
                     .map(resp => resp.json())
                     .map(resp => {
                         return resp;

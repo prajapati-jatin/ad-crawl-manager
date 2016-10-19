@@ -17,6 +17,23 @@ var AdminADPropertiesComponent = (function () {
         this.logger = logger;
         this.properties = [];
     }
+    AdminADPropertiesComponent.prototype.changeFlag = function (event, property) {
+        var _this = this;
+        var flag = event.target.checked;
+        console.log(flag);
+        var data = {
+            Id: property.Id,
+            Flag: flag
+        };
+        this.adpropertiesService.changedefaultflag(data).subscribe(function (resp) {
+            if (!resp.success) {
+                if (resp.data === '' || resp.data === undefined) {
+                    resp.data = 'Error occured. Please try again later';
+                }
+                _this.logger.showNotification(resp.data, 'error');
+            }
+        });
+    };
     AdminADPropertiesComponent.prototype.deleteADProperty = function (property) {
         var component = this;
         var logger = this.logger;

@@ -20,6 +20,7 @@ var ADPropertiesService = (function () {
         this.urlListProperties = '/api/adproperties/list';
         this.urlAddProperty = '/api/adproperties/add';
         this.urlDeleteADProperty = '/api/adproperties/';
+        this.urlChangeDefaultFlag = '/api/adproperties/changedefaultflag';
     }
     /**
      * Service request handler to list properties.
@@ -39,6 +40,13 @@ var ADPropertiesService = (function () {
     };
     ADPropertiesService.prototype.deleteadproperty = function (id) {
         return this.http.delete(this.urlDeleteADProperty + id, this.sharedData.getRequestOptions())
+            .map(function (resp) { return resp.json(); })
+            .map(function (resp) {
+            return resp;
+        });
+    };
+    ADPropertiesService.prototype.changedefaultflag = function (data) {
+        return this.http.post(this.urlChangeDefaultFlag, data, this.sharedData.getRequestOptions())
             .map(function (resp) { return resp.json(); })
             .map(function (resp) {
             return resp;

@@ -25,7 +25,7 @@
                 <td class="mdl-data-table__cell--non-numeric">{{property.Description}}</td>
                 <td class="mdl-data-table__cell--non-numeric">
                     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" [attr.for]="'switch-' + property.Id">
-                        <input type="checkbox" id="switch-{{property.Id}}" class="mdl-switch__input" [checked]="property.AvailableAsDefault">
+                        <input type="checkbox" id="switch-{{property.Id}}" class="mdl-switch__input" [checked]="property.AvailableAsDefault" (change)="changeFlag($event, property)">
                         <span class="mdl-switch__label"></span>
                     </label> 
                 </td>
