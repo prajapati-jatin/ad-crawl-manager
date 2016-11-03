@@ -22,3 +22,5 @@ http://mean.expert/2016/05/21/angular-2-component-communication/
 1. No data found (-2001)
 2. Error in creating AD Property. (-2002)
 3. AD property with given name already exists (-2003)
+4. Error while creating application (-2004)
+5. Application not found (-2005)

@@ -9,9 +9,19 @@
             <h3 class="no-padding-margin secondary-font section-title">Add application</h3>                
         </li>
     </ul>
-    <div class="mdl-card mdl-shadow--2dp card-fullwidth">
-        <div class="mdl-card__supporting-text">
-            
+    <form id="formaddapplication" class="form" (ngSubmit)="onSubmit()" #formaddapplication="ngForm">
+        <div class="mdl-card mdl-shadow--2dp card-fullwidth">
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" required name="name" id="name" [(ngModel)]="model.Name" #name="ngModel">
+                    <label class="mdl-textfield__label" for="name">Name</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="description" name="description" [(ngModel)]="model.Description" #description="ngModel">
+                    <label class="mdl-textfield__label" for="description">Description</label>
+                </div>
+            </div>
         </div>
-    </div>
+    </form>
+    
 </div>

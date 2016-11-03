@@ -12,6 +12,7 @@ var bodyParser = require('body-parser');
 var startup = require('./server/controllers/app.controller');
 var userapi = require('./server/api/api.user');
 var adapi = require('./server/api/api.adproperties');
+var applicationsapi = require('./server/api/api.application');
 //var users = require('./routes/users');
 
 var app = express();
@@ -46,6 +47,7 @@ app.use('/views', express.static(path.join(__dirname, 'public/app/views')));
 app.use('/', startup);
 app.use('/api/users', userapi);
 app.use('/api/adproperties', adapi);
+app.use('/api/applications', applicationsapi);
 
 
 

@@ -9,14 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var notification_service_1 = require('../../services/notification.service');
+var logger_service_1 = require('../../services/logger.service');
 var AdminAddApplicationComponent = (function () {
-    function AdminAddApplicationComponent() {
+    function AdminAddApplicationComponent(logger, router, notificationService) {
+        this.logger = logger;
+        this.router = router;
+        this.notificationService = notificationService;
     }
     AdminAddApplicationComponent = __decorate([
         core_1.Component({
             templateUrl: '/views/admin/add-application.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [logger_service_1.Logger, router_1.Router, notification_service_1.NotificationService])
     ], AdminAddApplicationComponent);
     return AdminAddApplicationComponent;
 }());
