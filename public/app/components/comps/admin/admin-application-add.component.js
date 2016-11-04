@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var application_1 = require('../../models/application');
 var router_1 = require('@angular/router');
 var notification_service_1 = require('../../services/notification.service');
 var logger_service_1 = require('../../services/logger.service');
@@ -17,7 +18,16 @@ var AdminAddApplicationComponent = (function () {
         this.logger = logger;
         this.router = router;
         this.notificationService = notificationService;
+        this.model = new application_1.Application('', '');
     }
+    AdminAddApplicationComponent.prototype.ngAfterViewInit = function () {
+        setTimeout(function () {
+            $('[class*="mdl-js-"]').each(function (i, element) {
+                //console.log(element);
+                componentHandler.upgradeElement(element);
+            });
+        }, 1000);
+    };
     AdminAddApplicationComponent = __decorate([
         core_1.Component({
             templateUrl: '/views/admin/add-application.html'
