@@ -44,30 +44,30 @@ body .app-header .app-title a {
 body .app-header .app-title a:hover {
   text-decoration: none;
 }
-/* line 60, ../sass/screen.scss */
+/* line 57, ../sass/screen.scss */
 body .card-in-center {
   margin-left: auto;
   margin-right: auto;
 }
-/* line 64, ../sass/screen.scss */
+/* line 61, ../sass/screen.scss */
 body .card-fullwidth {
   width: 100%;
   min-height: auto;
 }
-/* line 68, ../sass/screen.scss */
+/* line 65, ../sass/screen.scss */
 body .section-title {
   padding-left: 15px;
 }
-/* line 71, ../sass/screen.scss */
+/* line 68, ../sass/screen.scss */
 body .data-table-properties {
   width: 100%;
 }
-/* line 74, ../sass/screen.scss */
+/* line 71, ../sass/screen.scss */
 body .data-table-properties tr th,
 body .data-table-properties tr td {
   font-size: 15px;
 }
-/* line 81, ../sass/screen.scss */
+/* line 78, ../sass/screen.scss */
 body .app-button--add-adproperty {
   position: fixed;
   right: 0;
