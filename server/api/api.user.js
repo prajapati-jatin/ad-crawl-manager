@@ -32,7 +32,6 @@ function authenticateUser(req, res){
         if(resp.success){
             req.session.token = resp.data;
             //authentication successful
-            
         }
         else{
             //authentication failed
